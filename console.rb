@@ -34,6 +34,5 @@ album2.save()
 
 binding.pry()
 
-Artist.all()
-Album.all()
+
 nil
