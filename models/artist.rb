@@ -15,8 +15,12 @@ class Artist
   end
 
 
-
-
+  #define method to list all artists
+  def Artist.all()
+    sql = "SELECT * FROM artists"
+    results = SqlRunner.run(sql)
+    return results.map{ |artist| Artist.new(artist)}
+  end
 
 
 
