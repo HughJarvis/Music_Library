@@ -25,7 +25,7 @@ class Artist
     return results.map{ |artist| Artist.new(artist)}
   end
 
-  #define method to return a given artist's album(s)
+  #define method to return album(s) by a given artist
   def albums()
     sql = "SELECT * FROM albums WHERE artist_id = $1"
     values = [@id]
@@ -33,4 +33,29 @@ class Artist
     return results.map{|album| Album.new(album)}
   end
 
+  #define method to edit (i.e update) given artist
+  def update()
+
+  end
+
+  #define class method to delete artist by id
+  def Artist.delete(id)
+    sql = "DELETE FROM artists WHERE id = $1"
+    values = [id]
+    SqlRunner.run(sql, values)
+  end
+
+  #define class method to delete all artists
+  def Artist.delete_all()
+    sql = "DELETE FROM artists"
+    SqlRunner.run(sql)
+  end
+
+  #define class method to find an artist by their id
+  def Artist.find_by_id(id)
+    sql = "SELECT * FROM artists WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)[0]
+    return Artist.new(result)
+  end
 end

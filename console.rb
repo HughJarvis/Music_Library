@@ -30,7 +30,21 @@ album2 = Album.new({
 
 album2.save()
 
+album3 = Album.new({
+  'title' => 'Discovery',
+  'genre' => 'house',
+  'artist_id' => "#{artist2.id}"
+  })
 
+album3.save
+
+album4 = Album.new({
+  'title' => 'Random Access Memories',
+  'genre' => 'house',
+  'artist_id' => "#{artist2.id}"
+  })
+
+album4.save
 
 binding.pry()
 

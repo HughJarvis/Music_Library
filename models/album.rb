@@ -30,11 +30,50 @@ class Album
   end
 
 
-  #define method to give an album's artist
+  #define method to return artist for given album
   def artist()
     sql = "SELECT * FROM artists WHERE id = $1"
     values = [@artist_id]
     result = SqlRunner.run(sql, values)[0]
     return Artist.new(result)
   end
+
+  #define method to edit (i.e update) an album
+  def update()
+    sql = "UPDATE artists SET (title, genre, artist_id)
+          VALUES ($1, $2, $3) WHERE id = $4"
+    values = [@title, @genre, @artist_id, @id]
+    SqlRunner.run(sql, values)
+  end
+
+  #define method to delete one album by its id
+  def Album.delete(id)
+    sql = "DELETE FROM albums WHERE id = $1"
+    values = [id]
+    SqlRunner.run(sql, values)
+  end
+
+
+  #define method to delete albums by a particular artist
+  def Album.delete_by_artist(artist_id)
+    sql = "DELETE FROM albums WHERE artist_id = $1"
+    values = [artist_id]
+    SqlRunner.run(sql, values)
+  end
+
+
+  #define class method to delete all albums
+  def Album.delete_all()
+    sql = "DELETE FROM albums"
+    SqlRunner.run(sql)
+  end
+
+  #define class method to find an album by its id
+  def Album.find_by_id(id)
+    sql = "SELECT * FROM albums WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)[0]
+    return Album.new(result)
+  end
+
 end
