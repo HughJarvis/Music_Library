@@ -1,14 +1,20 @@
-require('rg')
+require('pg')
 
 class SqlRunner
 
-  #opens db link
+  def SqlRunner.run(sql, values = [])
 
-  #prepares statemet
+      #connect to db
+      db = PG.connect({host: 'localhost', dbname: 'music_library'})
+      #prepares statemet
+      db.prepare("query", sql)
+      #executes statement
+      result = db.exec_prepared("query", values)
 
-  #executes statement
+      #closes database
+      db.close()
 
-
-  #closes database
-
+      #return result
+      return result
+  end
 end
